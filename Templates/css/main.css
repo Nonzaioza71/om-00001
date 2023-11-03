@@ -1,0 +1,19 @@
+.h-100vh{
+    height: 100vh;
+}
+.icon-lg{
+    height: 64px;
+    width: 64px;
+}
+.d-hidden{
+    visibility: hidden;
+}
+.bg-success-50{
+    background-color: rgba(0, 255, 0, 0.5) !important;
+}
+.bg-info-50{
+    background-color: rgba(0, 255, 242, 0.5) !important;
+}
+.bg-warning-50{
+    background-color: rgba(251, 255, 0, 0.5) !important;
+}
