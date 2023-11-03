@@ -11,6 +11,10 @@ if ((isset($user)) && ($user['user_id'])) {
                 require_once($path."/../Components/Account/index.inc.php");
                 break;
 
+            case 'Estimate':
+                require_once($path."/../Components/Estimate/index.inc.php");
+                break;
+
             case 'Logout':
                 require_once($path."/../Components/signOut/index.inc.php");
                 break;

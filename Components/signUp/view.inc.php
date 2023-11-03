@@ -37,7 +37,7 @@
                     <input type="text" placeholder="3157784225214" class="form-control" id="user_national_card">
                 </div>
             </div>
-            <button type="submit" class="btn btn-lg btn-success mt-5">เข้าสู่ระบบ</button>
+            <button type="submit" class="btn btn-lg btn-success mt-5">ลงทะเบียน</button>
         </form>
     </div>
 </div>

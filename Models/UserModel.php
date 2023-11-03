@@ -44,6 +44,11 @@
             return $data;
         }
 
+        public function userConnected() {
+            $sql = "INSERT INTO `tb_rating` (`id`, `view_date`) VALUES ('', NOW())";
+            return $this->connection->query($sql);
+        }
+
         public function updateUserByID($user_prefix, $user_name, $user_lastname, $user_national_card, $user_birthday, $user_id) {
             $sql = "
                 UPDATE `tb_users` SET 

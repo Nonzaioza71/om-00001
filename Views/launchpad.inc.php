@@ -3,7 +3,7 @@ $menuList = [];
 $menuList['logined'] = [];
 $menuList['logined'][] = array('src' => "Templates\assets\imgs\corkboard.png", 'name' => "หน้าหลัก", 'route' => '?');
 $menuList['logined'][] = array('src' => "Templates\assets\imgs\advice.png", 'name' => "ขอวันนัดพบหมอ", 'route' => '?app=DoctorRequest');
-$menuList['logined'][] = array('src' => "Templates\assets\imgs\calendar.png", 'name' => "ปฏิทินวันพบหมอ", 'route' => '?app=DoctorDate');
+$menuList['logined'][] = array('src' => "Templates\assets\imgs\contract.png", 'name' => "แบบประเมิน", 'route' => '?app=Estimate');
 $menuList['logined'][] = array('src' => "Templates\assets\imgs\user.png", 'name' => "บัญชี", 'route' => '?app=Account');
 $menuList['logined'][] = array('src' => "Templates\assets\imgs\log-out.png", 'name' => "ออกจากระบบ", 'route' => '?app=Logout');
 
@@ -50,7 +50,7 @@ $menuList['noLogin'][] = array('src' => "Templates\assets\imgs\contract.png", 'n
 
 <script>
     function toggleLaunchpad(showLaunchpad) {
-        console.log(showLaunchpad);
+     //   console.log(showLaunchpad);
         showLaunchpad
             ?
             document.querySelector('#launchpad').classList.remove("d-none") :
