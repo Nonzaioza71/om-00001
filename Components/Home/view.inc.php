@@ -3,8 +3,8 @@
         <h1 class="text-center">Banner</h1>
     </div>
     <div class="col-12"></div>
-    <div class="col-12 bg-info-50 pt-5 pb-5 row justify-content-center">
-        <div class="col-10">
+    <div class="col-12 bg-info-50 pt-5 pb-5">
+        <div class="container">
             <div class="col-12 card" style="height: 70vh;">
                 <h1>Board</h1>
             </div>
