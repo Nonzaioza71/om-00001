@@ -3,10 +3,8 @@ $path = __DIR__;
 require_once($path . "/../Models/UserModel.php");
 $user_model = new UserModel();
 
-
 if ((isset($user)) && ($user['user_id'])) {
-    $checkHasPIN = $user_model->getUserPINByID($user['user_id']);
-    if (count($checkHasPIN) > 0) {
+    if (strlen($user['user_pin']) > 1) {
         if (array_key_exists('PINLogined', $_SESSION)) {
             if (array_key_exists('app', $_GET)) {
                 switch ($_GET['app']) {
@@ -34,7 +32,11 @@ if ((isset($user)) && ($user['user_id'])) {
                 require_once($path . "/../Components\Home\index.inc.php");
             }
         } else {
-            require_once($path . "/../Components\Security\index.inc.php");
+            if ($_GET['app'] == 'Logout') {
+                require_once($path . "/../Components/signOut/index.inc.php");
+            }else{
+                require_once($path . "/../Components\Security\index.inc.php");
+            }
         }
     } else {
         if (array_key_exists('app', $_GET)) {

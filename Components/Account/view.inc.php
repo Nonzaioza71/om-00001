@@ -25,7 +25,7 @@
                     </h3>
                     <h3 class="text-secondary mt-5">
                         ระบบความปลอดภัยแบบ PIN
-                        <input class="form-control fs-2" type="text" value="" placeholder="112233" id="user_pin" value="<?php echo $user['user_pin'] ?>">
+                        <input class="form-control fs-2" type="text" placeholder="112233" id="user_pin" value="<?php echo $user['user_pin'] ?>">
                     </h3>
     
                     <h4 class="text-secondary mt-5">เป็นสมาชิกเมื่อ : <?php echo $user['add_date'] ?></h4>
@@ -43,6 +43,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 <script>

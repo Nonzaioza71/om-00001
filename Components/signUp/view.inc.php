@@ -72,13 +72,14 @@
                     user_national_card,
                     user_birthday
                 })
-            }).then(res => res.text())
+            }).then(res => res.json())
             .then(data => {
                 console.log(data);
-                if(data.length == 0){
-                    // alert('เกิดข้อผิดพลาดในการเข้าสู่ระบบกรุณาลองอีกครั้ง')
+                if(data){
+                    alert('ดำเนินการเสร็จสิ้น')
+                    window.location.href = '?'
                 }else{
-                    // window.location.href = '?'
+                    alert('เกิดข้อผิดพลาดในการเข้าสู่ระบบกรุณาลองอีกครั้ง')
                 }
             })
     }

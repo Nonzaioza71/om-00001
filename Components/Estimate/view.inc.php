@@ -95,9 +95,9 @@
             method: "POST",
             body: JSON.stringify({data})
         })
-        .then(res=>res.json())
+        .then(res=>res.text())
         .then(data=>{
-            // console.log(data);
+            console.log(data);
             const _r = { isSuccess: true, refresh: true }
             toggleDoctorRequestModal(_r)
         })

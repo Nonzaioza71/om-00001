@@ -61,19 +61,25 @@ class EstimateModel extends BaseModel
 
     public function updateEstimateByID($user_id, $arr)
     {
-        $sql = "";
-        for ($i = 0; $i < count($arr); $i++) {
-            $item = $arr[$i];
-            $sql .= "UPDATE `tb_estimate_score` 
-                    SET 
-                    `estimate_score` = " . $item['estimate_score'] . " 
-                    WHERE 
-                    `tb_estimate_score`.`user_id` = $user_id 
-                    AND 
-                    `tb_estimate_score`.`estimate_id` = " . $item['estimate_id'] . ";
-                ";
+        $sql = "DELETE FROM `tb_estimate_score` WHERE `tb_estimate_score`.`user_id` = $user_id";
+        // for ($i = 0; $i < count($arr); $i++) {
+        //     $item = $arr[$i];
+        //     $sql .= "UPDATE `tb_estimate_score` 
+        //             SET 
+        //             `estimate_score` = " . $item['estimate_score'] . " 
+        //             WHERE 
+        //             `tb_estimate_score`.`user_id` = $user_id 
+        //             AND 
+        //             `tb_estimate_score`.`estimate_id` = " . $item['estimate_id'] . ";
+        //         ";
+        // }
+        $res = $this->connection->query($sql);
+        if (boolval($res)) {
+            return $this->insertEstimateScoreBy($user_id, $arr);
+        }else{
+            return false;
         }
         // return $sql;
-        return $this->connection->multi_query($sql);
+        // return $this->connection->query($sql);
     }
 }

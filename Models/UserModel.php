@@ -25,9 +25,21 @@ class UserModel extends BaseModel
         return $data;
     }
 
+    public function getUserBannedByID($user_id) {
+        $sql = "SELECT * FROM `tb_user_banned_list` WHERE user_id = $user_id;";
+        $res = $this->connection->query($sql);
+        $data = [];
+        if ($res->num_rows > 0) {
+            while ($row = $res->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }
+        return $data;
+    }
+
     public function getUserByID($id)
     {
-        $sql = "SELECT * FROM tb_users WHERE user_id = $id";
+        $sql = "SELECT * FROM tb_users LEFT JOIN tb_users_pin ON tb_users_pin.user_id = tb_users.user_id WHERE tb_users.user_id = $id";
         $res = $this->connection->query($sql);
         $data = [];
         if ($res->num_rows > 0) {
@@ -40,7 +52,7 @@ class UserModel extends BaseModel
 
     public function getUserByCard($card = "")
     {
-        $sql = "SELECT * FROM tb_users WHERE user_national_card = '" . $card . "'";
+        $sql = "SELECT * FROM tb_users LEFT JOIN tb_users_pin ON tb_users_pin.user_id = tb_users.user_id WHERE user_national_card = '" . $card . "'";
         $res = $this->connection->query($sql);
         $data = [];
         if ($res->num_rows > 0) {
@@ -75,9 +87,7 @@ class UserModel extends BaseModel
     public function updateUserPINByID($user_id, $user_pin)
     {
         $sql = "
-                UPDATE `tb_users_pin` SET 
-                `user_pin` = '$user_pin', 
-                WHERE `tb_users`.`user_id` = $user_id
+            UPDATE `tb_users_pin` SET `user_pin` = '$user_pin' WHERE `tb_users_pin`.`user_id` = $user_id;
             ";
         // return $sql;
         return $this->connection->query($sql);
@@ -161,7 +171,7 @@ class UserModel extends BaseModel
                     )
             ";
         // return $sql;
-        $this->connection->query($sql);
-        return $this->getUserByCard($user_national_card);
+        return $this->connection->query($sql);
+        // return $this->getUserByCard($user_national_card);
     }
 }
