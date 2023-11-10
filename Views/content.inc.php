@@ -29,7 +29,7 @@ if (isset($user)) {
                         break;
                 }
             } else {
-                require_once($path . "/../Components\Home\index.inc.php");
+                require_once($path . "/../Components\Index\index.inc.php");
             }
         } else {
             if ($_GET['app'] == 'Logout') {
@@ -62,7 +62,7 @@ if (isset($user)) {
                     break;
             }
         } else {
-            require_once($path . "/../Components\Home\index.inc.php");
+            require_once($path . "/../Components\Index\index.inc.php");
         }
     }
 } else {
@@ -81,6 +81,6 @@ if (isset($user)) {
                 break;
         }
     } else {
-        require_once($path . "/../Components\Home\index.inc.php");
+        require_once($path . "/../Components\Index\index.inc.php");
     }
 }
