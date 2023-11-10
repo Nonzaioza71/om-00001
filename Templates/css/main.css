@@ -17,9 +17,18 @@
 .bg-warning-50{
     background-color: rgba(251, 255, 0, 0.5) !important;
 }
+.bg-danger-50{
+    background-color: rgba(251, 0, 0, 0.5) !important;
+}
+.bg-dark-50{
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
 .top-25{
     top: 25%;
 }
 .bottom-25{
     bottom: 25%;
+}
+.cursor-pointer{
+    cursor: pointer !important;
 }

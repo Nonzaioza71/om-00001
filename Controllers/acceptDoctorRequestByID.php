@@ -1,5 +1,4 @@
 <?php
-    session_start();
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json; charset=utf-8');
 
@@ -8,6 +7,6 @@
 
     $data = json_decode(file_get_contents('php://input'), true);
 
-    $res = $doctor_request_model->insertDoctorRequest($_SESSION['user_data']['user_id'], $data['request_detail']);
+    $res = $doctor_request_model->acceptDoctorRequestByID($data['req_id'], $data['doctor_id'], $data['reply'], $data['_date']);
 
     echo json_encode($res);

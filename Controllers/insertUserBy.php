@@ -13,6 +13,7 @@
         $data['user_lastname'],
         $data['user_national_card'],
         $data['user_birthday'],
+        $data['user_gender']
     );
 
     echo json_encode($res);

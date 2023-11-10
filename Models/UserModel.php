@@ -11,7 +11,7 @@ class UserModel extends BaseModel
 
     public function getUserLoginBy($card = "", $birthday = "")
     {
-        $sql = "SELECT * FROM tb_users 
+        $sql = "SELECT tb_users.*, tb_users_pin.user_pin FROM tb_users 
         LEFT JOIN tb_users_pin ON tb_users_pin.user_id = tb_users.user_id WHERE 
         user_national_card = '$card' AND user_birthday = '$birthday';
         ";
@@ -39,7 +39,7 @@ class UserModel extends BaseModel
 
     public function getUserByID($id)
     {
-        $sql = "SELECT * FROM tb_users LEFT JOIN tb_users_pin ON tb_users_pin.user_id = tb_users.user_id WHERE tb_users.user_id = $id";
+        $sql = "SELECT tb_users.*, tb_users_pin.user_pin FROM tb_users LEFT JOIN tb_users_pin ON tb_users_pin.user_id = tb_users.user_id WHERE tb_users.user_id = $id";
         $res = $this->connection->query($sql);
         $data = [];
         if ($res->num_rows > 0) {
@@ -52,7 +52,7 @@ class UserModel extends BaseModel
 
     public function getUserByCard($card = "")
     {
-        $sql = "SELECT * FROM tb_users LEFT JOIN tb_users_pin ON tb_users_pin.user_id = tb_users.user_id WHERE user_national_card = '" . $card . "'";
+        $sql = "SELECT tb_users.*, tb_users_pin.user_pin FROM tb_users LEFT JOIN tb_users_pin ON tb_users_pin.user_id = tb_users.user_id WHERE user_national_card = '" . $card . "'";
         $res = $this->connection->query($sql);
         $data = [];
         if ($res->num_rows > 0) {
@@ -145,7 +145,7 @@ class UserModel extends BaseModel
         return $this->connection->query($sql);
     }
 
-    public function insertUserBy($user_prefix, $user_name, $user_lastname, $user_national_card, $user_birthday)
+    public function insertUserBy($user_prefix, $user_name, $user_lastname, $user_national_card, $user_birthday, $user_gender)
     {
         $sql = "
                 INSERT INTO `tb_users` (
@@ -153,6 +153,7 @@ class UserModel extends BaseModel
                     `user_prefix`, 
                     `user_name`, 
                     `user_lastname`, 
+                    `user_gender`, 
                     `user_national_card`, 
                     `user_birthday`, 
                     `user_role`, 
@@ -163,6 +164,7 @@ class UserModel extends BaseModel
                         '$user_prefix', 
                         '$user_name', 
                         '$user_lastname', 
+                        '$user_gender', 
                         '$user_national_card', 
                         '$user_birthday', 
                         'user', 

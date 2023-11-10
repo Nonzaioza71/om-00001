@@ -1,5 +1,5 @@
 <div class="col-12 pb-5">
-    <div class="col-12 pt-5 text-center">
+    <div class="container pt-5 text-center">
         <img src="Templates\assets\imgs\user.png" class="col-1" alt="" srcset="">
         <h1 class="text-center mt-3">
             <strong>
@@ -24,11 +24,18 @@
                 </div>
             </div>
             <div class="col-12 row justify-content-center mt-5">
-                <div class="form-group col-10">
+                <div class="form-group col-5">
                     <label>วัน/เดือน/ปี เกิด</label>
                     <input type="date" onChange="_handleDateUpdate(this.value)" class="d-hidden" style="width: 0px;" name="datepicker" id="datepicker">
                     <!-- <button type="button" class="btn btn-primary" onClick="">เลือกวันที่</button> -->
                     <input type="text" name="user_birthday" id="user_birthday" onClick="document.querySelector('#datepicker').showPicker()" class="form-control mt-3">
+                </div>
+                <div class="form-group col-5 align-self-end">
+                    <label>เพศ</label>
+                    <select name="user_gender" id="user_gender" class="form-select">
+                        <option value="male">ชาย</option>
+                        <option value="female">หญิง</option>
+                    </select>
                 </div>
             </div>
             <div class="col-12 row justify-content-center mt-5">
@@ -59,6 +66,7 @@
         const user_lastname = document.querySelector('#user_lastname').value
         const user_national_card = document.querySelector('#user_national_card').value
         const user_birthday = document.querySelector('#user_birthday').value
+        const user_gender = document.querySelector('#user_gender').value
         fetch('./Controllers/insertUserBy.php', {
                 headers: {
                     'Accept': 'application/json',
@@ -70,7 +78,8 @@
                     user_name,
                     user_lastname,
                     user_national_card,
-                    user_birthday
+                    user_birthday,
+                    user_gender,
                 })
             }).then(res => res.json())
             .then(data => {

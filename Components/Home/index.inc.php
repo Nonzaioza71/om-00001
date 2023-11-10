@@ -5,4 +5,23 @@
         }
     }
     $path = __DIR__;
-    require_once($path."/view.inc.php");
+    require_once('Models/BoardModel.php');
+    $board_model = new BoardModel();
+    $boards_list = $board_model->getBoardsBy();
+
+
+    if (array_key_exists('app', $_GET)) {
+        switch ($_GET['view']) {
+            case 'detail':
+                $board_data = $board_model->getBoardsByID($_GET['id']);
+                require_once($path."/detail.inc.php");
+                break;
+            
+            default:
+                require_once($path."/view.inc.php");
+                break;
+        }
+    } else {
+        require_once($path."/view.inc.php");
+    }
+    
