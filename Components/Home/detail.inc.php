@@ -1,76 +1,65 @@
-<div class="container mb-3 pt-5 pb-5 bg-info-50">
-    <div class="col-12 card p-5 mb-3">
+<?php
+$board_data = $boards_list[$_GET['idx']]
+?>
+
+<div class="col-12 mb-5">
+    <div class="col-12 mt-5 card p-5 mb-3">
         <h1><?php echo $board_data['board_title'] ?></h1>
-        <pre class="fs-3"><?php echo $board_data['board_detail'] ?></pre>
-        <div class="container mb-3">
-            <img src="<?php echo $board_data['board_image'] ?>" class="w-100" alt="" srcset="">
-        </div>
-        <div class="container d-flex justify-content-end">
-            <h2 class="align-self-center">ความคิดเห็นอีก <span id="comment_count"><?php echo $board_data['comments_count'] ?></span> รายการ</h2>
-        </div>
+        <pre class="fs-5"><?php echo $board_data['board_detail'] ?></pre>
+        <img src="<?php echo $board_data['board_image'] ?>" alt="" srcset="" class="w-100">
+        <h4 class="mt-5">ความคิดเห็นทั้งหมด <span id="comments_count"></span> รายการ</h4>
     </div>
-    <div class="col-12 mb-3">
-        <button class="btn btn-lg btn-primary w-100">
-            แสดงความคิดเห็น
+
+    <div class="col-12 mb-3" id="comments_list">
+
+    </div>
+
+    <div class="col-12 card p-5 mb-5">
+        <h3>ความคิดเห็น</h3>
+        <textarea name="user_reply" id="user_reply" cols="30" rows="10" class="form-control fs-5"></textarea>
+        <input type="text" class="d-none" id="board_id" value="<?php echo $board_data['id'] ?>">
+        <input type="text" class="d-none" id="board_view" value="<?php echo $board_data['board_view'] ?>">
+        <button class="btn btn-lg btn-primary mt-3" onclick="_handleSubmit()">
+            ส่ง
         </button>
     </div>
-    <div class="list-group">
-        <div id="comment_list" class="list-group mb-3">
-
-        </div>
-        <?php if (isset($user)) { ?>
-            <div class="list-group-item list-group-action p-3">
-                <h2><?php echo $user['user_prefix'] . $user['user_name'] . " " . $user['user_lastname'] ?></h2>
-                <hr>
-                <div class="mb-3">
-                    <h3 for="comment_msg" class="form-label">ความคิดเห็น</h3>
-                    <textarea class="form-control fs-3" name="comment_msg" id="comment_msg" rows="3"></textarea>
-                </div>
-                <div class="col-12 d-flex justify-content-end">
-                    <button class="btn btn-lg btn-primary ps-5 pe-5" onclick="_handleSubmit()">
-                        ส่ง
-                    </button>
-                </div>
-            </div>
-        <?php } ?>
-    </div>
 </div>
-<input type="text" class="d-none" id="board_id" value="<?php echo $_GET['id'] ?>">
+
 <script>
     function _handleSubmit() {
-        const comment_msg = document.querySelector('#comment_msg').value
-        const board_id = document.querySelector('#board_id').value
-        const check = Boolean(comment_msg.length > 0)
-        if (check) {
-            fetch('Controllers/insertReplyBoardByID.php', {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    method: "POST",
-                    body: JSON.stringify({
-                        comment_msg,
-                        board_id
-                    })
+        const user_reply = getEle('#user_reply')
+        const board_id = getEle('#board_id').value
+
+        fetch('Controllers/insertReplyBoardByID.php', {
+                headers: {
+                    "Accept": 'application/json',
+                    "Content-Type": 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    comment_msg: user_reply.value,
+                    board_id
                 })
-                .then(res => res.text())
-                .then(data => {
-                    // console.log(data);
-                    _loadComment()
-                    document.querySelector('#comment_msg').value = ""
-                })
-        }
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log();
+                if (data) {
+                    user_reply.value = ""
+                } else {
+                    getEle('#errorPage').classList.remove('d-none')
+                }
+            })
     }
 
     function _loadComment() {
-        const comment_msg = document.querySelector('#comment_msg')
-        const board_id = document.querySelector('#board_id').value
-        const comment_list = document.querySelector('#comment_list')
-        const comment_count = document.querySelector('#comment_count')
+        const board_id = getEle('#board_id').value
+        let eleStr = ''
+
         fetch('Controllers/getBoardCommentByID.php', {
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
+                    "Accept": 'application/json',
+                    "Content-Type": 'application/json'
                 },
                 method: "POST",
                 body: JSON.stringify({
@@ -79,34 +68,67 @@
             })
             .then(res => res.json())
             .then(data => {
-                let ele = ""
-                data.forEach((item, idx) => {
-                    ele += `
-                    <div class="list-group-item list-group-action p-3">
-                        <h2 class="mb-3">${item['user_prefix'] + item['user_name']+ " " + item['user_lastname']}</h2>
-                        <div class="mb-3">
-                            <pre class="fs-3" readOnluy rows="3">${item['user_msg']}</pre>
-                        </div>
-                    </div>
-                    `
-                })
-                comment_list.innerHTML = ele
-                comment_count.innerHTML = data.length
+                if (data) {
+                    data.forEach((item, idx) => {
+                        if (item['user_id'] != null) {
+                            if (item['user_role'] == 'admin') {
+                            eleStr += `<div class="card p-5 mb-3">
+                                        <div class="col-12 mb-3">
+                                            <div class="col-2">
+                                                <img src="Templates\\assets\\imgs\\${item['user_role']}_${item['user_gender']}.png" alt="" srcset="" class="icon-xl rounded-circle">
+                                            </div>
+                                        </div>
+                                        <h3>${item['admin_prefix']}${item['admin_name']} ${item['admin_lastname']}</h3>
+                                        <pre class="fs-5">${item['user_msg']}</pre>
+                                    </div>`
+                                }else{
+                                eleStr += `<div class="card p-5 mb-3">
+                                            <div class="col-12 mb-3">
+                                                <div class="col-2">
+                                                    <img src="Templates\\assets\\imgs\\${item['user_role']}_${item['user_gender']}.png" alt="" srcset="" class="icon-xl rounded-circle">
+                                                </div>
+                                            </div>
+                                            <h3>${item['user_prefix']}${item['user_name']} ${item['user_lastname']}</h3>
+                                            <pre class="fs-5">${item['user_msg']}</pre>
+                                        </div>`
+
+                            }
+                        }
+                    });
+                    getEle('#comments_list').innerHTML = eleStr
+                    getEle('#comments_count').innerHTML = data.length
+                    // console.log(data);
+                } else {
+                    getEle('#errorPage').classList.remove('d-none')
+                }
             })
+
     }
 
-    function _scrollToBottom() {
-        window.scrollTo({
-            top: document.body.scrollHeight
+    function _boardView() {
+        const board_view = getEle('#board_view').value
+        const board_id = getEle('#board_id').value
+        fetch('Controllers/updateBoardView.php', {
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type": 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({
+                board_view: (parseInt(board_view) + 1),
+                board_id,
+            })
         })
+        .then(res=>res.text())
+        .then(data=>console.log(data))
     }
 
-    function _scrollToTop() {
-        window.scrollTo({
-            top: 0
-        })
-    }
+    window.addEventListener("load", _loopLoad)
 
-    _loadComment()
-    setInterval(_loadComment, 1000)
+    function _loopLoad() {
+        _boardView()
+        setInterval(() => {
+            _loadComment()
+        }, 1000);
+    }
 </script>

@@ -8,11 +8,6 @@
 
     $data = json_decode(file_get_contents('php://input'), true);
 
-    $res = $board_model->getBoardCommentByID($data['board_id']);
-    $admin_comments = $board_model->getBoardCommentByAdminID($data['board_id']);
-
-    for ($i=0; $i < count($admin_comments); $i++) { 
-        $res[] = $admin_comments[$i];
-    }
+    $res = $board_model->updateBoardViewByID($data['board_id'], $data['board_view']);
 
     echo json_encode($res);

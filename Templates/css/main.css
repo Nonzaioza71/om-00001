@@ -5,6 +5,10 @@
     height: 64px;
     width: 64px;
 }
+.icon-xl{
+    height: 128px;
+    width: 128px;
+}
 .d-hidden{
     visibility: hidden;
 }
@@ -19,6 +23,9 @@
 }
 .bg-danger-50{
     background-color: rgba(251, 0, 0, 0.5) !important;
+}
+.bg-primary-50{
+    background-color: rgba(0, 0, 255, 0.5) !important;
 }
 .bg-dark-50{
     background-color: rgba(0, 0, 0, 0.5) !important;

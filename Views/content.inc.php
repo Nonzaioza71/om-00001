@@ -1,86 +1,67 @@
-<?php
-$path = __DIR__;
-require_once($path . "/../Models/UserModel.php");
-$user_model = new UserModel();
-
-if (isset($user)) {
-    if ((strlen(strval($user['user_pin'])) > 1)) {
-        if (array_key_exists('PINLogined', $_SESSION)) {
+<div class="col-12">
+    <div class="container">
+        <div class="col-12">
+            <img src="Templates\assets\imgs\banner.png" alt="" srcset="" class="w-100">
+            <div class="btn-group col-12">
+                <div class="btn btn-lg btn-warning">
+                    <h1>จำนวนผู้เข้าชม <?php echo $views_count ?> คน</h1>
+                </div>
+                <div class="btn btn-lg btn-info">
+                    <h1>กระทู้ทั้งหมด <?php echo $boards_count ?> รายการ</h1>
+                </div>
+            </div>
+        </div>
+        <?php
+        if ($user == null) {
             if (array_key_exists('app', $_GET)) {
                 switch ($_GET['app']) {
-                    case 'DoctorRequest':
-                        require_once($path . "/../Components/DoctorRequest/index.inc.php");
+                    case 'login':
+                        require_once('Components/Login/index.inc.php');
                         break;
 
-                    case 'Account':
-                        require_once($path . "/../Components/Account/index.inc.php");
-                        break;
-
-                    case 'Estimate':
-                        require_once($path . "/../Components/Estimate/index.inc.php");
-                        break;
-
-                    case 'Logout':
-                        require_once($path . "/../Components/signOut/index.inc.php");
+                    case 'register':
+                        require_once('Components/Register/index.inc.php');
                         break;
 
                     default:
-                        require_once($path . "/../Components\Home\index.inc.php");
+                        require_once('Components/Home/index.inc.php');
                         break;
                 }
             } else {
-                require_once($path . "/../Components\Index\index.inc.php");
+                require_once('Components/Index/index.inc.php');
             }
         } else {
-            if ($_GET['app'] == 'Logout') {
-                require_once($path . "/../Components/signOut/index.inc.php");
+            if (array_key_exists('app', $_GET)) {
+                switch ($_GET['app']) {
+                    case 'account':
+                        require_once('Components/Account/index.inc.php');
+                        break;
+
+                    case 'doctor_request':
+                        require_once('Components/DoctorRequest/index.inc.php');
+                        break;
+
+                    case 'home':
+                        require_once('Components/Home/index.inc.php');
+                        break;
+
+                    case 'estimate':
+                        require_once('Components/Estimate/index.inc.php');
+                        break;
+
+                    case 'logout':
+                        require_once('Components/Logout/index.inc.php');
+                        break;
+
+                    default:
+                        echo '<script>window.location.href = "?app=home"</script>';
+                        break;
+                }
             } else {
-                require_once($path . "/../Components\Security\index.inc.php");
+                require_once('Components/Index/index.inc.php');
+                echo '<script>window.location.href = "?app=home"</script>';
             }
         }
-    } else {
-        if (array_key_exists('app', $_GET)) {
-            switch ($_GET['app']) {
-                case 'DoctorRequest':
-                    require_once($path . "/../Components/DoctorRequest/index.inc.php");
-                    break;
-
-                case 'Account':
-                    require_once($path . "/../Components/Account/index.inc.php");
-                    break;
-
-                case 'Estimate':
-                    require_once($path . "/../Components/Estimate/index.inc.php");
-                    break;
-
-                case 'Logout':
-                    require_once($path . "/../Components/signOut/index.inc.php");
-                    break;
-
-                default:
-                    require_once($path . "/../Components\Home\index.inc.php");
-                    break;
-            }
-        } else {
-            require_once($path . "/../Components\Index\index.inc.php");
-        }
-    }
-} else {
-    if (array_key_exists('app', $_GET)) {
-        switch ($_GET['app']) {
-            case 'signIn':
-                require_once($path . "/../Components\signIn\index.inc.php");
-                break;
-
-            case 'signUp':
-                require_once($path . "/../Components\signUp\index.inc.php");
-                break;
-
-            default:
-                require_once($path . "/../Components\Home\index.inc.php");
-                break;
-        }
-    } else {
-        require_once($path . "/../Components\Index\index.inc.php");
-    }
-}
+        ?>
+    </div>
+</div>

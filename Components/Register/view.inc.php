@@ -1,23 +1,18 @@
 <div class="col-12 mt-5 mb-5 p-5 card">
-    <h1 class="text-center mb-3">รายละเอียดบัญชี</h1>
+    <h1 class="text-center">สมัครสมาชิก</h1>
     <hr>
-    <div class="col-12 mb-3">
-        <div class="col-12 d-flex justify-content-center">
-            <div class="col-3">
-                <img src="<?php echo $user_data['user_image'] ?>" class="w-100" alt="" srcset="">
-            </div>
-        </div>
+    <div class="col-12">
         <div class="form-group mb-5">
             <h3>คำนำหน้าชื่อ-ชื่อจริง-นามสกุล</h3>
             <div class="col-12 d-flex">
                 <div class="col-2">
-                    <input type="text" value="<?php echo $user_data['user_prefix'] ?>" name="user_prefix" id="user_prefix" class="form-control">
+                    <input type="text" name="user_prefix" id="user_prefix" class="form-control">
                 </div>
                 <div class="col-5">
-                    <input type="text" value="<?php echo $user_data['user_name'] ?>" name="user_name" id="user_name" class="form-control">
+                    <input type="text" name="user_name" id="user_name" class="form-control">
                 </div>
                 <div class="col-5">
-                    <input type="text" value="<?php echo $user_data['user_lastname'] ?>" name="user_lastname" id="user_lastname" class="form-control">
+                    <input type="text" name="user_lastname" id="user_lastname" class="form-control">
                 </div>
             </div>
         </div>
@@ -26,23 +21,23 @@
             <div class="col-12 d-flex">
                 <div class="col-12">
                     <select type="text" name="user_gender" id="user_gender" class="form-select">
-                        <option value="male" <?php if($user_data['user_gender'] == 'male') echo 'selected' ?>>ชาย</option>
-                        <option value="female" <?php if($user_data['user_gender'] == 'female') echo 'selected' ?>>หญิง</option>
+                        <option value="male">ชาย</option>
+                        <option value="female">หญิง</option>
                     </select>
                 </div>
             </div>
         </div>
         <div class="form-group mb-5">
             <h3>วัน/เดือน/ปี เกิด</h3>
-            <input type="date" value="<?php echo $user_data['user_birthday']?>" name="user_birthday" id="user_birthday" class="form-control">
+            <input type="date" name="user_birthday" id="user_birthday" class="form-control">
         </div>
         <div class="form-group mb-5">
             <h3>รหัสบัตรประชาชน</h3>
-            <input type="text" value="<?php echo $user_data['user_national_card'] ?>" name="user_national_card" id="user_national_card" class="form-control">
+            <input type="text" name="user_national_card" id="user_national_card" class="form-control">
         </div>
         <div class="col-12 d-flex justify-content-around">
-            <button class="btn btn-lg btn-success col-5" onclick="window.location.reload()">คืนค่าเดิม</button>
-            <button class="btn btn-lg btn-primary col-5" onclick="_handleSubmit()">บันทึก</button>
+            <button class="btn btn-lg btn-success col-5" onclick="_handleSubmit()">สมัครสมาชิก</button>
+            <button class="btn btn-lg btn-primary col-5" onclick="to('?app=login')">ไปที่เข้าสู่ระบบ</button>
         </div>
     </div>
 </div>
@@ -56,7 +51,7 @@
         const user_birthday = getEle('#user_birthday').value
         const user_national_card = getEle('#user_national_card').value
 
-        fetch('Controllers/updateUserByID.php', {
+        fetch('Controllers/insertUserBy.php', {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json'
@@ -71,11 +66,11 @@
                 user_national_card
             })
         })
-        .then(res=>res.text())
+        .then(res=>res.json())
         .then(data=>{
-            // console.log(data);
+            console.log();
             if (data) {
-                window.location.reload()
+                window.location.href = '?app=login'
             } else {
                 getEle('#errorPage').classList.remove('d-none')
             }

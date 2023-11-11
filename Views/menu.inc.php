@@ -1,15 +1,13 @@
-<nav class="navbar fixed-top bg-light col-12">
-    <div class="container justify-content-center">
-        <button class="btn btn-lg btn-outline-success fs-1 text-dark ps-4 pe-4 w-100 bg-success-50" onClick="toggleLaunchpad(true)">
-            <img class="icon-lg" src="Templates\assets\imgs\list.png">
+<nav class="nav-bar fixed-top bg-light">
+    <div class="container pt-3 pb-3">
+        <button class="btn btn-lg btn-outline-success w-100 fs-1" onclick="document.querySelector('#launchpad').classList.remove('d-none')">
             เมนู
         </button>
     </div>
 </nav>
-<nav class="navbar bg-light col-12">
-    <div class="container justify-content-center">
-        <button class="btn btn-lg btn-outline-success fs-1 text-dark ps-4 pe-4 w-100 bg-success-50" onClick="toggleLaunchpad(true)">
-            <img class="icon-lg" src="Templates\assets\imgs\list.png">
+<nav class="nav-bar bg-light">
+    <div class="container pt-3 pb-3">
+        <button class="btn btn-lg btn-outline-success w-100">
             เมนู
         </button>
     </div>

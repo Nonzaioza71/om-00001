@@ -1,12 +1,14 @@
-<div class="col-12 mb-5 pb-5">
-    <div class="container">
-        <div class="col-12 text-center">
-                <img src="Templates\assets\imgs\index_page.png" alt="" srcset="" class="col-8">
+<div class="h-100vh col-12 bg-info-50">
+    <div class="position-absolute top-50 text-center container">
+        <h1>
+            <span class="text-primary">NTC</span>
+            <span class="text-danger">อุ่นใจ</span>
+        </h1>
+        <div class="col-12 d-flex justify-content-center">
+            <div class="col-6">
+                <hr>
+            </div>
         </div>
-        <div class="col-12 text-center">
-            <button class="btn btn-lg btn-outline-danger bg-danger-50 col-8" onclick="window.location.href = '?app=Home'">
-                เข้าสู่เว็บไซต์
-            </button>
-        </div>
+        <button class="btn btn-lg btn-success" onclick="to('?app=Home')">เข้าสู่เว็บไซต์</button>
     </div>
 </div>

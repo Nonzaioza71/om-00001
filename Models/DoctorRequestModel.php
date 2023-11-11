@@ -112,6 +112,7 @@ class DoctorRequestModel extends BaseModel
                 `doctor_id` = '$doctor_id', 
                 `reply` = '$reply', 
                 `status` = 'approve',
+                `status_th` = 'ได้รับการตอบรับจากหมอแล้ว',
                 `reply_date` = '$reply_date' 
                 WHERE `tb_doctor_request`.`id` = $id
             ";

@@ -63,6 +63,19 @@ class UserModel extends BaseModel
         return $data;
     }
 
+    
+    public function getUserRating(){
+        $sql = "SELECT * FROM `tb_rating`";
+        $res = $this->connection->query($sql);
+        $data = [];
+        if($res->num_rows > 0){
+            while ($row = $res->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }
+        return $data;
+    }
+
     public function userConnected()
     {
         $sql = "INSERT INTO `tb_rating` (`id`, `view_date`) VALUES ('', NOW())";
